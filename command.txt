@@ -1,0 +1,47 @@
+minikube start
+
+kubectl get services hello-minikube
+
+#Create a sample deployment and expose it on port 8080:
+kubectl create deployment hello-minikube --image=k8s.gcr.io/echoserver:1.4
+kubectl expose deployment hello-minikube --type=NodePort --port=8080
+
+# forward service to browser
+minikube service hello-minikube
+kubectl port-forward service/hello-minikube 7080:8080
+port-forward pod/frontend-b48f4bbc8-8mtzp 5000:6000
+
+# create deployment and service
+kubectl apply -f '... .yaml'
+
+# debugging
+kubectl logs
+kubectl descrive
+
+minikube pause
+minikube unpause
+minikube stop
+minikube delete <pod>
+minikube delete pods --all
+kubectl delete -f ./back/backend.yaml
+
+# Use docker daemon with minikube
+eval $(minikube docker-env) 
+# exit
+eval $(minikube docker-env -u)
+# Load docker image to minikube
+minikube image load flask-back:latest
+# create & run pod from yaml on local docker image
+kubectl run <pod name> --image=flask-back:latest --image-pull-policy=Never
+
+# check the exposed port
+kubectl get pod <pod-name> -n <namespace>  --template='{{(index (index .spec.containers 0).ports 0).containerPort}}{{"\n"}}'
+
+# -------------------------------
+docker build . -t <flask-front> -f front/Dockerfile  # with name
+docker build . -t <flask-back> -f back/Dockerfile
+# docker run <image>
+docker run -it --rm -p 6000:6000 <image>
+docker stop <image>
+# force remove image (untag, delete)
+docker rmi -f <image>
