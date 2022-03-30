@@ -9,7 +9,7 @@ Pre-requisite case study for applying for NU CDL student researcher position
 
 Issue: When exposing services with command `minikube service --all`, I always receive this error message:
 
-```bash
+```
 🏃  Starting tunnel for service frontend.
 🏃  Starting tunnel for service hello.
 🏃  Starting tunnel for service kubernetes.
