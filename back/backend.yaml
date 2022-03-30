@@ -40,5 +40,7 @@ spec:
   - protocol: TCP
     port: 80
     targetPort: http
+# added next line #
+  type: NodePort
 ...
 
