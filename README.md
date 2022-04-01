@@ -20,7 +20,14 @@ Issue: When exposing services with command `minikube service --all`, I always re
 
 `CDL_Tensorflow_MNIST.ipynb` notebook includes the code and outputs for this task.
 
+## Task 3: Deploy MongoDB onto K8s
+
+All files for this task is stored under `mongo-flask` folder. Code from creating docker images to deploying the Mongo-flask app can be found in `mongo-flask/commands-mongo.txt`. 
+
+Great thanks to this tutorial: [Deploy your first Flask+MongoDB app on Kubernetes][https://levelup.gitconnected.com/deploy-your-first-flask-mongodb-app-on-kubernetes-8f5a33fa43b4]
+
+
 ## Video demo
 
-`demo_K8s.mp4` is the demo video for Task 1 and `demo_MNIST.mp4` is for Task 2.
+`demo_K8s.mp4` is the demo video for Task 1, `demo_MNIST.mp4` is for Task 2, and `demo_MongoDB.mp4` is for Task 3.
 
