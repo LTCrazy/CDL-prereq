@@ -24,7 +24,7 @@ Issue: When exposing services with command `minikube service --all`, I always re
 
 All files for this task is stored under `mongo-flask` folder. Code from creating docker images to deploying the Mongo-flask app can be found in `mongo-flask/commands-mongo.txt`. 
 
-Great thanks to this tutorial: [Deploy your first Flask+MongoDB app on Kubernetes][https://levelup.gitconnected.com/deploy-your-first-flask-mongodb-app-on-kubernetes-8f5a33fa43b4]
+Great thanks to this tutorial: [Deploy your first Flask+MongoDB app on Kubernetes](https://levelup.gitconnected.com/deploy-your-first-flask-mongodb-app-on-kubernetes-8f5a33fa43b4)
 
 
 ## Video demo
