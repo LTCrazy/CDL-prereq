@@ -1,0 +1,51 @@
+##### Create the docker image for flask app and pull mongo image. Have them run on the same network #####
+
+# cd <mongo-flask folder> #
+# eval $(minikube docker-env) #
+docker login
+docker build . -t ltcrazy/mongo-flask:1.0.0
+docker push ltcrazy/mongo-flask:1.0.0
+docker network create mongo-flask-net
+docker run --name=mongo --rm -d --network=mongo-flask-net mongo
+docker run --name=mongo-flask --rm -p 5000:5000 -d --network=mongo-flask-net ltcrazy/mongo-flask:1.0.0
+
+##### Check localhost:5000 to see if the container is working #####
+
+##### Run this containerized app on a container orchestrator (K8s) #####
+minikube ssh  # **enter master node
+kubectl apply -f mongoflask.yaml
+kubectl get pods -o wide  # should see minikube as node
+kubectl apply -f mongoflask-svc.yaml  # should see ClusterIP
+kubectl port-forward service/mongoflask-svc 5000:8080  # should be able to forward
+
+##### Create persistent volume #####
+kubectl create -f mongo-pv.yaml
+kubectl create -f mongo-pvc.yaml
+kubectl get pv  # check
+kubectl get pvc  # check
+kubectl patch pv mongo-pv -p '{"spec":{"claimRef": {"namespace":"default","name":"mongo-pvc"}}}'  # use this if the pvc didn't bind to pv
+
+##### Deploy mongoDB server #####
+kubectl create -f mongo.yaml
+kubectl create -f mongo-svc.yaml
+kubectl port-forward service/mongo 5000:27017 # should be able to forward
+
+##### Testing #####
+curl 10.107.224.252:8080
+curl 10.107.224.252:8080/tasks
+curl -X POST -d "{\"task\": \"Big Data for Analytics\"}" http://10.107.224.252:8080/task
+curl -X POST -d "{\"task\": \"Reinforcement Learning\"}" http://10.107.224.252:8080/task
+curl -X POST -d "{\"task\": \"Online Market\"}" http://10.107.224.252:8080/task
+curl -X POST -d "{\"task\": \"Adv NLP\"}" http://10.107.224.252:8080/task
+curl -X POST -d "{\"task\": \"Practicum\"}" http://10.107.224.252:8080/task
+curl 10.107.224.252:8080/tasks
+curl -X PUT -d "{\"task\": \"Practicum-project\"}" http://10.107.224.252:8080/task/<entry id>
+curl 10.107.224.252:8080/tasks
+curl -X DELETE http://10.107.224.252:8080/task/<entry id>
+# curl -X POST http://10.107.224.252:8080/tasks/delete
+curl 10.107.224.252:8080/tasks
+
+##### Debug #####
+kubectl get pods -l app=mongoflask -o go-template='{{range .items}}{{.status.podIP}}{{"\n"}}{{end}}'  # print pod IP
+kubectl logs -l app=<pod name>  # also print pod IP
+

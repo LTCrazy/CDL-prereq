@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongoflask
+  labels:
+    app: mongoflask
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongoflask
+  template:
+    metadata:
+      labels:
+        app: mongoflask
+    spec:
+      containers:
+        - name: mongoflask
+          image: ltcrazy/mongo-flask:1.0.0
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 5000

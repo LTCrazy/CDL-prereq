@@ -14,6 +14,7 @@ def index():
     )
 @app.route("/tasks")
 def get_all_tasks():
+    # db.createCollection("task")
     tasks = db.task.find()
     data = []
     for task in tasks:
@@ -55,7 +56,7 @@ def delete_task(id):
     )
 @app.route("/tasks/delete", methods=["POST"])
 def delete_all_tasks():
-    db.task.remove()
+    db.task.remove({})
     return jsonify(
         message="All Tasks deleted!"
     )
