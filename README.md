@@ -29,5 +29,5 @@ Reference: [Deploy your first Flask+MongoDB app on Kubernetes](https://levelup.g
 
 ## Video demo
 
-`demo_K8s.mp4` is the demo video for Task 1, `demo_MNIST.mp4` is for Task 2, and `demo_MongoDB.mp4` is for Task 3.
+`demo_K8s.mp4` is the demo video for Task 1, `demo_MNIST.mp4` is for Task 2, and `mongo-flask/demo_MongoDB.mp4` is for Task 3.
 
